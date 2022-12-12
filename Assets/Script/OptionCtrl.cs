@@ -52,6 +52,7 @@ public class OptionCtrl : MonoBehaviour
     void Start()
     {
         //Instantiate(optionMenu).SetActive(false);
+        
     }
 
     // Update is called once per frame
