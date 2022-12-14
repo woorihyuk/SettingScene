@@ -1,31 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
 
 namespace Script.Settings
 {
     public class SettingsManager : MonoBehaviour
     {
-        public static SettingsManager instance;
+        public static SettingsManager Instance;
+        
+        public AudioSettingsData AudioSettingsData = new();
+        public GraphicSettingsData GraphicSettingsData = new();
 
-        public static SettingsManager Instance
+        public static SettingsManager Instance1
         {
             get
             {
-                if (instance != null) return instance;
+                if (Instance != null) return Instance;
                 var obj = FindObjectOfType<SettingsManager>();
                 if (obj != null)
                 {
-                    instance = obj;
+                    Instance = obj;
                 }
                 else
                 {
                     var newObj = new GameObject().AddComponent<SettingsManager>();
-                    instance = newObj;
+                    Instance = newObj;
                 }
-                return instance;
+                return Instance;
             }
         }
-    
+        
         private void Awake()
         {
             var objs = FindObjectsOfType<SettingsManager>();
@@ -35,13 +41,18 @@ namespace Script.Settings
                 return;
             }
             DontDestroyOnLoad(gameObject);
-            instance = this;
+            Instance = this;
         }
-        public AudioSettingsData audioSettingsData = new();
 
-        public void Do()
+        
+
+        public void Do(InputAction inputAction, int i)
         {
-            
+            inputAction.PerformInteractiveRebinding().
+                WithCancelingThrough("<Keyboard>/escape").
+                WithTargetBinding(i).
+                WithExpectedControlType("Button");
         }
     }
+    
 }

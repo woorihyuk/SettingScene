@@ -2134,6 +2134,7 @@ GameObject:
   - component: {fileID: 763305986}
   - component: {fileID: 763305985}
   - component: {fileID: 763305984}
+  - component: {fileID: 763305987}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2169,7 +2170,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763305982}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2244,6 +2245,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763305982}
   m_CullTransparentMesh: 1
+--- !u!114 &763305987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763305982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535ecafa36b347e4da6ac6b6c343353e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Move
+  bindingIndex: 1
+  inputAction:
+    m_Name: Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 45e7cf9f-e33e-4391-8896-2f126c6fb206
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &778114223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,7 +2431,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1935844206}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionCtrl, Assembly-CSharp
         m_MethodName: MenuOn
         m_Mode: 2
@@ -3406,7 +3430,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1935844206}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OptionCtrl, Assembly-CSharp
         m_MethodName: MenuOn
         m_Mode: 2
@@ -4782,10 +4806,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1935844201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc219511273b40e45b081fb20327f93d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7190a34e87de4a208fd617819affbbf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionMenu: {fileID: 520428753}
 --- !u!1 &1941646267
 GameObject:
   m_ObjectHideFlags: 0
