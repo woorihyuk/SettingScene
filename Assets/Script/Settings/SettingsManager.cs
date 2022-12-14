@@ -46,12 +46,14 @@ namespace Script.Settings
 
         
 
-        public void Do(InputAction inputAction, int i)
+        public void Do(Button button, InputAction inputAction, int i)
         {
-            inputAction.PerformInteractiveRebinding().
-                WithCancelingThrough("<Keyboard>/escape").
-                WithTargetBinding(i).
-                WithExpectedControlType("Button");
+            inputAction.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape").WithTargetBinding(i)
+                .WithExpectedControlType("Button").OnComplete(operation =>
+                {
+                    button.KeyBind(inputAction.bindings[i].effectivePath);
+                    operation.Dispose();
+                }).Start();
         }
     }
     
