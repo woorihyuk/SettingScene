@@ -1,18 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using System.IO;
 using UnityEngine.InputSystem;
 
 
 namespace Script.Settings
 {
+    [System.Serializable]
+    public class SettingSaveData
+    {
+        public string keySaveValue;
+        public Dictionary<string, bool> BoolSettingData;
+        public List<Resolution> Resolutions;
+    }
+
     public class SettingsManager : MonoBehaviour
     {
         public static SettingsManager Instance;
-        
+
         public AudioSettingsData AudioSettingsData = new();
         public GraphicSettingsData GraphicSettingsData = new();
-
+        public SettingSaveData settingSaveData;
+        
         public static SettingsManager Instance1
         {
             get
@@ -44,14 +53,41 @@ namespace Script.Settings
             Instance = this;
         }
 
-        
+        public void SetSettingSaveData()
+        {
+            settingSaveData.Resolutions=new List<Resolution>(Screen.resolutions);
+            settingSaveData.BoolSettingData = new Dictionary<string, bool>()
+            {
+                {"FoolScreen", true}
+            };
+        }
 
-        public void Do(Button button, InputAction inputAction, int i)
+        public void SaveSettingData()
+        {
+            var jsonData = JsonUtility.ToJson(settingSaveData, true);
+            File.WriteAllText(Path.Combine(Application.persistentDataPath, 
+                "save.json"), jsonData);
+        }
+
+        public void LoadSettingData()
+        {
+            if (!File.Exists(Path.Combine(Application.persistentDataPath,"save.json")))
+            {
+                settingSaveData = new SettingSaveData();
+                return;
+            }
+
+            var jsonData = 
+                File.ReadAllText(Path.Combine(Application.persistentDataPath, "save.json"));
+            settingSaveData = JsonUtility.FromJson<SettingSaveData>(jsonData);
+        }
+
+        public static void KeyRebind(KeySettingButton keySettingButton, InputAction inputAction, int i)
         {
             inputAction.PerformInteractiveRebinding().WithCancelingThrough("<Keyboard>/escape").WithTargetBinding(i)
                 .WithExpectedControlType("Button").OnComplete(operation =>
                 {
-                    button.KeyBind(inputAction.bindings[i].effectivePath);
+                    keySettingButton.SetBindKeyName(inputAction.bindings[i].effectivePath);
                     operation.Dispose();
                 }).Start();
         }
