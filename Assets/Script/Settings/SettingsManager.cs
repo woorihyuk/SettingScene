@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -11,15 +12,15 @@ namespace Script.Settings
     {
         public string keySaveValue;
         public Dictionary<string, bool> BoolSettingData;
+        public Dictionary<string, (int, string[])> ListSettingData;
         public List<Resolution> Resolutions;
+        
     }
 
     public class SettingsManager : MonoBehaviour
     {
         public static SettingsManager Instance;
-
-        public AudioSettingsData AudioSettingsData = new();
-        public GraphicSettingsData GraphicSettingsData = new();
+        
         public SettingSaveData settingSaveData;
         
         public static SettingsManager Instance1
@@ -51,15 +52,26 @@ namespace Script.Settings
             }
             DontDestroyOnLoad(gameObject);
             Instance = this;
+            SetSettingSaveData();
         }
 
         public void SetSettingSaveData()
         {
-            settingSaveData.Resolutions=new List<Resolution>(Screen.resolutions);
-            settingSaveData.BoolSettingData = new Dictionary<string, bool>()
+            settingSaveData.Resolutions = new List<Resolution>(Screen.resolutions);
+            settingSaveData.ListSettingData = new Dictionary<string, (int, string[])>()
             {
-                {"FoolScreen", true}
+                {"setting1", (0, new string[5]{"value1", "value2","value3","value4","value5"})}
             };
+        }
+
+        public void Update()
+        {
+            print(settingSaveData.ListSettingData["setting1"].Item1);
+        }
+
+        public void SettingConfirm()
+        {
+            
         }
 
         public void SaveSettingData()
